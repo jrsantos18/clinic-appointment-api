@@ -75,11 +75,11 @@ class CreateAppointmentService {
   }
 
   private formatErrorMessage(oldAppointment: IAppointmentDTO) {
-    const formattedDate = oldAppointment.date && `(${format(oldAppointment.date, 'dd-MM-yyyy')})`;
-    const formattedDays = oldAppointment.days && `(${formatDays(oldAppointment.days)})`;
+    const formattedDate = oldAppointment.date ? ` (${format(oldAppointment.date, 'dd-MM-yyyy')})` : '';
+    const formattedDays = oldAppointment.days ? ` (${formatDays(oldAppointment.days)})` : '';
     throw new AppError('Existem intervalos sobrepondo o atendimento'
-      + `${formatAppointmentType(oldAppointment.type) + formattedDate + formattedDays}`
-      + `[${format(oldAppointment.overlappingInterval.start, 'HH:mm')}, `
+      + ` ${formatAppointmentType(oldAppointment.type) + formattedDate + formattedDays}`
+      + ` [${format(oldAppointment.overlappingInterval.start, 'HH:mm')}, `
       + `${format(oldAppointment.overlappingInterval.end, 'HH:mm')}]!`, HttpStatusCode.BAD_REQUEST);
   }
 }
